@@ -1,2 +1,2 @@
-# dojos_jetpack_compose
-Pour la préparation de dojos autour de Jetpack Compose
+# DOJOS Jetpack Compose
+Ce repository contient tous les exercices imaginés pour des ateliers de Dojos autour de Jetpack Compose pour Android.
