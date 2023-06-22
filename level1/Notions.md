@@ -12,3 +12,7 @@ Ces notions sont:
 * Semantics
 
 Pour s'entrainer à manipuler tous ces éléments, nous construirons un formulaire.
+
+## Ressources
+
+[Documentation du State Hoisting](https://developer.android.com/jetpack/compose/state-hoisting?hl=fr)
