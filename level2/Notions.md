@@ -5,3 +5,7 @@ Ces notions sont:
 * SideEffects
 * States (avancé): produceState / derivedStateOf
 * Simple animations
+
+## Ressources
+
+https://www.youtube.com/watch?v=6ZZDPILtYlA
