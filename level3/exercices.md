@@ -97,6 +97,8 @@ fun AppointmentCalendar() {
 
 4. **Résumé**: Nous avons travaillé sur l'`IntrinsicSize` en Jetpack Compose. Nous avons créé une `AppointmentCard` qui utilise `IntrinsicSize.Min` pour s'assurer que la carte est toujours suffisamment grande pour afficher tous les détails de l'appointment.
 
+---
+
 ## Exercice 4: Custom Layouts
 
 1. **Notion à connaître**: Les "custom layouts" sont des dispositions que vous créez pour adapter les Composables à vos propres besoins. Vous pouvez les définir en utilisant le modificateur `Layout` et en spécifiant comment les enfants doivent être disposés.
@@ -227,6 +229,8 @@ fun AppointmentCalendar() {
 ```
 
 4. **Résumé**: Dans cet exercice, nous avons refactorisé notre code pour améliorer la composition locale. En extrayant des parties de notre code en leurs propres composables, nous avons amélioré la lisibilité et la maintenabilité de notre code.
+
+---
 
 ## Exercice 7: Raffinement de la Recomposition Stability
 
@@ -395,3 +399,246 @@ fun AppointmentCalendar() {
 ```
 
 4. **Résumé**: Nous avons utilisé `remember` et `mutableStateOf` pour gérer l'état partagé entre différents composables, minimisant ainsi les recompositions inutiles. Nous avons également utilisé les animations pour indiquer visuellement le changement d'état.
+
+---
+
+## Exercice 11: Layouts intrinsectSize et Custom Animations combinés
+
+1. **Notion à connaître**: Combinaison des layouts intrinsèques et des animations personnalisées. L'utilisation combinée de ces deux concepts peut aider à créer des interfaces utilisateur dynamiques et réactives.
+
+2. **Besoin**: Modifiez le `WeekView` pour que la hauteur de chaque `DayColumn` soit animée pour correspondre au nombre d'`AppointmentCard` présentes pour chaque jour. Le `DayColumn` doit se développer et se rétracter de manière fluide lors de l'ajout ou de la suppression d'un rendez-vous.
+
+3. **Correction**:
+```kotlin
+@Composable
+fun DayColumn(day: String, appointments: List<Appointment>, selectedDay: MutableState<String>) {
+    val isSelected = remember { mutableStateOf(false) }
+    isSelected.value = day == selectedDay.value
+
+    val backgroundColor by animateColorAsState(if (isSelected.value) Color.LightGray else Color.White)
+
+    Column(
+        modifier = Modifier
+            .background(color = backgroundColor)
+            .animateContentSize(animationSpec = tween(durationMillis = 500))
+    ) {
+        Text(day, modifier = Modifier.padding(4.dp))
+        appointments.forEach { 
+            AnimatedAppointmentCard(SelectedAppointment(it), isSelected = isSelected.value)
+        }
+    }
+}
+```
+
+4. **Résumé**: Nous avons combiné les layouts intrinsèques et les animations personnalisées pour créer un `DayColumn` dynamique qui s'étend et se rétracte en fonction du nombre de `AppointmentCard`. Cela a permis d'améliorer l'expérience utilisateur en rendant l'interface plus interactive.
+
+---
+
+## Exercice 12: Custom Layouts avec Recomposition Stability et état partagé
+
+1. **Notion à connaître**: Utiliser les custom layouts pour organiser l'état partagé de manière efficace et maintenir une recomposition stable est un défi intéressant. Cela nécessite une compréhension approfondie des deux concepts pour être réalisé correctement.
+
+2. **Besoin**: Ajoutez un `MonthView` Composable qui affiche plusieurs `WeekView`. Utilisez un custom layout pour organiser ces `WeekView`. De plus, assurez-vous que la recomposition reste stable et que l'état partagé est géré efficacement.
+
+3. **Correction**:
+```kotlin
+@Stable
+class MonthState {
+    var selectedDay by mutableStateOf("")
+    var appointments by mutableStateOf(mutableMapOf<String, List<Appointment>>())
+}
+
+@Composable
+fun MonthView(monthState: MonthState) {
+    Column {
+        monthState.appointments.keys.forEach { week ->
+            WeekView(monthState.appointments[week] ?: emptyList(), monthState.selectedDay)
+        }
+    }
+}
+
+@Composable
+fun AppointmentCalendar() {
+    val monthState = remember { MonthState() }
+    monthState.appointments = generateAppointmentsForMonth()
+
+    MonthView(monthState)
+    SelectButton(monthState.selectedDay)
+}
+```
+
+4. **Résumé**: Nous avons ajouté un `MonthView` Composable qui affiche plusieurs `WeekView` en utilisant un custom layout. Nous avons également géré l'état partagé et la stabilité de la recomposition de manière efficace.
+
+---
+
+## Exercice 13: Complexification des Custom Layouts et des Custom Animations
+
+1. **Notion à connaître**: L'ajout de complexité aux custom layouts et aux animations
+
+ personnalisées peut aider à créer des interfaces utilisateur encore plus dynamiques et interactives.
+
+2. **Besoin**: Modifiez le custom layout de `MonthView` pour afficher les `WeekView` dans une grille, avec des animations pour déplacer les `WeekView` lors de la sélection d'un jour spécifique.
+
+3. **Correction**:
+```kotlin
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun MonthView(monthState: MonthState) {
+    val transition = updateTransition(monthState.selectedDay, label = "Week Shift")
+    val weekOffset by transition.animateInt(label = "Week Offset") { weekNumber ->
+        when (weekNumber) {
+            "1" -> 0
+            "2" -> 1
+            "3" -> 2
+            "4" -> 3
+            else -> 0
+        }
+    }
+
+    Row(modifier = Modifier.fillMaxWidth()) {
+        monthState.appointments.keys.forEach { week ->
+            AnimatedVisibility(
+                visible = monthState.selectedDay == week,
+                enter = slideInHorizontally(initialOffsetX = { it * weekOffset }),
+                exit = slideOutHorizontally(targetOffsetX = { -it * weekOffset })
+            ) {
+                WeekView(monthState.appointments[week] ?: emptyList(), monthState.selectedDay)
+            }
+        }
+    }
+}
+```
+
+4. **Résumé**: En ajoutant de la complexité à nos layouts et animations personnalisés, nous avons créé une interface utilisateur dynamique où les `WeekView` se déplacent en fonction du jour sélectionné. Cela a permis d'augmenter l'interactivité et l'intuitivité de notre application.
+
+---
+
+## Exercice 14: Intégration de toutes les notions avec gestion des erreurs
+
+1. **Notion à connaître**: L'intégration des notions précédemment étudiées, avec l'ajout d'une gestion d'erreurs. Il est essentiel de pouvoir gérer les erreurs de manière élégante et informative pour les utilisateurs.
+
+2. **Besoin**: Intégrez toutes les notions que nous avons étudiées jusqu'à présent et ajoutez une gestion d'erreurs. Si un jour sélectionné ne contient pas d'`AppointmentCard`, affichez un message d'erreur à l'utilisateur.
+
+3. **Correction**:
+```kotlin
+@Composable
+fun MonthView(monthState: MonthState) {
+    val transition = updateTransition(monthState.selectedDay, label = "Week Shift")
+    val weekOffset by transition.animateInt(label = "Week Offset") { weekNumber ->
+        when (weekNumber) {
+            "1" -> 0
+            "2" -> 1
+            "3" -> 2
+            "4" -> 3
+            else -> 0
+        }
+    }
+
+    Row(modifier = Modifier.fillMaxWidth()) {
+        monthState.appointments.keys.forEach { week ->
+            val appointments = monthState.appointments[week] ?: emptyList()
+            AnimatedVisibility(
+                visible = monthState.selectedDay == week,
+                enter = slideInHorizontally(initialOffsetX = { it * weekOffset }),
+                exit = slideOutHorizontally(targetOffsetX = { -it * weekOffset })
+            ) {
+                if (appointments.isEmpty()) {
+                    Text("No appointments available for $week")
+                } else {
+                    WeekView(appointments, monthState.selectedDay)
+                }
+            }
+        }
+    }
+}
+```
+
+4. **Résumé**: En intégrant toutes les notions que nous avons étudiées jusqu'à présent et en ajoutant une gestion d'erreurs, nous avons créé une application robuste et résiliente. Cette approche assure que notre application est non seulement interactive et intuitive, mais également capable de fournir un feedback utile à l'utilisateur.
+
+---
+
+## Exercice 15: Intégration complète avec gestion d'état complexe et animations
+
+1. **Notion à connaître**: La gestion d'état complexe et des animations dans un contexte d'application complète. Cette notion réunit tout ce que nous avons appris jusqu'à présent pour créer une application entièrement fonctionnelle.
+
+2. **Besoin**: Créez un système de sélection de semaine dans lequel, lorsque l'utilisateur sélectionne une semaine, les autres semaines disparaissent et l'utilisateur ne voit que la semaine sélectionnée. De plus, chaque jour de la semaine doit être sélectionnable, et lorsqu'un jour est sélectionné, l'heure des rendez-vous de ce jour doit être modifiable. Toutes ces modifications doivent être animées.
+
+3. **Correction**:
+```kotlin
+@Composable
+fun WeekSelector(monthState: MonthState) {
+    Row {
+        monthState.appointments.keys.forEach { week ->
+            Button(onClick = { monthState.selectedDay = week }) {
+                Text(week)
+            }
+        }
+    }
+}
+
+@Composable
+fun AppointmentEditor(appointment: Appointment, onTimeChange: (String) -> Unit) {
+    val time = remember { mutableStateOf(appointment.time) }
+    TextField(value = time.value, onValueChange = { newValue ->
+        time.value = newValue
+        onTimeChange(newValue)
+    })
+}
+
+@Composable
+fun DayColumn(appointments: List<Appointment>, selectedDay: MutableState<String>, onTimeChange: (Appointment, String) -> Unit) {
+    appointments.forEach { appointment ->
+        if (selectedDay.value == appointment.day) {
+            AppointmentEditor(appointment, onTimeChange = { newTime ->
+                onTimeChange(appointment, newTime)
+            })
+        }
+    }
+}
+
+@Composable
+fun MonthView(monthState: MonthState, onTimeChange: (Appointment, String) -> Unit) {
+    val transition = updateTransition(monthState.selectedDay, label = "Week Shift")
+    val weekOffset by transition.animateInt(label = "Week Offset") { weekNumber ->
+        when (weekNumber) {
+            "1" -> 0
+            "2" -> 1
+            "3" -> 2
+            "4" -> 3
+            else -> 0
+        }
+    }
+
+    Row(modifier = Modifier.fillMaxWidth()) {
+        monthState.appointments.keys.forEach { week ->
+            val appointments = monthState.appointments[week] ?: emptyList()
+            AnimatedVisibility(
+                visible = monthState.selectedDay == week,
+                enter = slideInHorizontally(initialOffsetX = { it * weekOffset }),
+                exit = slideOutHorizontally(targetOffsetX = { -it * weekOffset })
+            ) {
+                if (appointments.isEmpty()) {
+                    Text("No appointments available for $week")
+                } else {
+                    WeekView(appointments, monthState.selectedDay, onTimeChange)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun AppointmentCalendar() {
+    val monthState = remember { MonthState() }
+    monthState.appointments = generateAppointmentsForMonth()
+
+    WeekSelector(monthState)
+    MonthView(monthState, onTimeChange = { appointment, newTime ->
+        appointment.time = newTime
+    })
+}
+```
+
+4. **Résumé**: En combinant toutes les notions précédemment étudiées et en ajoutant des interactions et animations complexes, nous avons créé une application de calendrier entièrement interactive. Cette application permet de sélectionner des semaines, de sélectionner des jours spécifiques dans ces semaines, et d'éditer les heures des rendez-vous pour
+
+ chaque jour. Tout cela est accompagné d'animations fluides et intuitives pour rendre l'expérience utilisateur aussi agréable que possible.
