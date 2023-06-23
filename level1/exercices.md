@@ -79,7 +79,7 @@ fun Calendar() {
 
 2. *Besoin* : Créez un composable "CalendarMonth" qui contient 30 instances de "CalendarDay". Chaque jour doit se mettre à jour individuellement lorsqu'il est sélectionné sans recomposer l'ensemble du mois.
 
-3. *Correction* :
+3. *Suggestion* :
 
 ```kotlin
 @Composable

@@ -4,7 +4,8 @@ Ces notions sont:
 
 * SideEffects
 * States (avancé): produceState / derivedStateOf
-* Simple animations
+* Simple custom animations
+* Profiler (Recomposition Count)
 
 ## Ressources
 

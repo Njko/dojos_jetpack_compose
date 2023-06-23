@@ -4,12 +4,26 @@ Dans ces exercices, vous devrez apprendre à maitriser les fondamentaux de Compo
 
 Ces notions sont:
 
-* Les éléments courant de Material (Bouton, Text, Switch, etc.)
+* Les éléments courant de Material (Bouton, Text, Switch, etc.) => sans interaction pour commencer
 * Les Composables de structure Box, Row et Column
 * Les Modifiers
 * Les Previews
 
+en option:
+* Introduction aux states
+* Elements interactifs
+
 Pour s'entrainer à manipuler tous ces éléments, nous construirons un formulaire.
+
+## Pré-requis
+
+* Android Studio installé et au moins un template de projet initié et exécuté (sur simulateur ou device)
+* Les docs de Material et Compose sous la main
+
+## Pas nécessaire (mais bien de savoir)
+
+* Les bases de Kotlin
+* Les bases d'une app Android
 
 ## Ressources
 

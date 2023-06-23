@@ -7,9 +7,9 @@ Ces notions sont:
 * Local State
 * State hoisting
 * Recomposition (Base)
-* Profiler (Recomposition Count)
 * Debugger Layout Hierarchy
-* Semantics
+* Semantics (A11Y) : contentDescription / mergeDescendant
+* AnimatedVisibility
 
 Pour s'entrainer à manipuler tous ces éléments, nous construirons un formulaire.
 
