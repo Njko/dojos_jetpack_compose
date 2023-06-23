@@ -639,6 +639,4 @@ fun AppointmentCalendar() {
 }
 ```
 
-4. **Résumé**: En combinant toutes les notions précédemment étudiées et en ajoutant des interactions et animations complexes, nous avons créé une application de calendrier entièrement interactive. Cette application permet de sélectionner des semaines, de sélectionner des jours spécifiques dans ces semaines, et d'éditer les heures des rendez-vous pour
-
- chaque jour. Tout cela est accompagné d'animations fluides et intuitives pour rendre l'expérience utilisateur aussi agréable que possible.
+4. **Résumé**: En combinant toutes les notions précédemment étudiées et en ajoutant des interactions et animations complexes, nous avons créé une application de calendrier entièrement interactive. Cette application permet de sélectionner des semaines, de sélectionner des jours spécifiques dans ces semaines, et d'éditer les heures des rendez-vous pour chaque jour. Tout cela est accompagné d'animations fluides et intuitives pour rendre l'expérience utilisateur aussi agréable que possible.
