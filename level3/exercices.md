@@ -227,3 +227,171 @@ fun AppointmentCalendar() {
 ```
 
 4. **Résumé**: Dans cet exercice, nous avons refactorisé notre code pour améliorer la composition locale. En extrayant des parties de notre code en leurs propres composables, nous avons amélioré la lisibilité et la maintenabilité de notre code.
+
+## Exercice 7: Raffinement de la Recomposition Stability
+
+1. **Notion à connaître**: L'utilisation correcte des annotations `@Stable` est cruciale pour garantir des performances optimales. Un mauvais usage peut entraîner des recompositions inutiles et nuire aux performances.
+
+2. **Besoin**: Raffinez le Composable `AppointmentCard` pour assurer que les recompositions sont minimisées. L'animation de couleur de fond ne doit se déclencher que lorsque l'état `isSelected` change.
+
+3. **Correction**:
+```kotlin
+@Stable
+class SelectedAppointment(val appointment: Appointment) {
+    var isSelected by mutableStateOf(false)
+}
+
+@Composable
+fun AppointmentCard(selectedAppointment: SelectedAppointment) {
+    val backgroundColor by animateColorAsState(if (selectedAppointment.isSelected) Color.LightGray else Color.White)
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min),
+        backgroundColor = backgroundColor,
+        shape = RoundedCornerShape(8.dp),
+        elevation = 4.dp
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = "Appointment Details")
+            Text(text = "Date: ${selectedAppointment.appointment.date}")
+            Text(text = "Time: ${selectedAppointment.appointment.time}")
+        }
+    }
+}
+
+@Composable
+fun AppointmentCalendar() {
+    val weekDays = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
+    var selectedAppointment = remember { SelectedAppointment(Appointment("", "")) }
+
+    WeekView(weekDays)
+    SelectButton(selectedAppointment)
+
+    if (selectedAppointment.appointment.date.isNotEmpty()) {
+        AppointmentCard(selectedAppointment)
+    }
+}
+```
+
+4. **Résumé**: Nous avons raffiné notre utilisation de `@Stable` pour minimiser les recompositions inutiles. Cela nous aide à garantir que notre application reste performante même en cas de changements d'état.
+
+---
+
+## Exercice 8: Expansion du Layouts intrinsectSize
+
+1. **Notion à connaître**: Les layouts intrinsèques sont extrêmement utiles lorsque nous avons besoin de plus de contrôle sur la taille et la disposition de nos Composables.
+
+2. **Besoin**: Mettez à jour le `WeekView` pour afficher non seulement le nom du jour, mais aussi un nombre variable de `AppointmentCard`. Le layout doit s'adapter pour accommoder le nombre de `AppointmentCard`.
+
+3. **Correction**:
+```kotlin
+@Composable
+fun DayColumn(day: String, appointments: List<Appointment>) {
+    Column {
+        Text(day, modifier = Modifier.padding(4.dp))
+        appointments.forEach { 
+            AppointmentCard(SelectedAppointment(it), isSelected = true)
+        }
+    }
+}
+
+@Composable
+fun WeekView(weekDays: List<String>, weekAppointments: Map<String, List<Appointment>>) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        weekDays.forEach { day ->
+            DayColumn(day, weekAppointments[day] ?: emptyList())
+        }
+    }
+}
+```
+
+4. **Résumé**: Nous avons élargi notre utilisation des layouts intrinsèques pour adapter notre layout à un nombre variable de `AppointmentCard`. Cela démontre la flexibilité des layouts intrinsèques.
+
+---
+
+## Exercice 9: Complexification des Custom Animations
+
+1. **Notion à connaître**: Jetpack Compose permet des
+
+ animations plus complexes en utilisant `Transition`.
+
+2. **Besoin**: Animer l'affichage des `AppointmentCard` de sorte qu'elles se déplacent de bas en haut lorsqu'elles sont ajoutées à l'écran.
+
+3. **Correction**:
+```kotlin
+@Composable
+fun AnimatedAppointmentCard(selectedAppointment: SelectedAppointment) {
+    val transition = updateTransition(selectedAppointment.isSelected, label = "Appointment Card")
+    val translateY by transition.animateDp(label = "Slide Animation") { isSelected ->
+        if (isSelected) 0.dp else 200.dp
+    }
+
+    AppointmentCard(selectedAppointment).offset(y = translateY)
+}
+
+@Composable
+fun DayColumn(day: String, appointments: List<Appointment>) {
+    Column {
+        Text(day, modifier = Modifier.padding(4.dp))
+        appointments.forEach { 
+            AnimatedAppointmentCard(SelectedAppointment(it), isSelected = true)
+        }
+    }
+}
+```
+
+4. **Résumé**: Nous avons utilisé `Transition` pour créer une animation plus complexe pour nos `AppointmentCard`. Cela nous a permis de rendre l'application plus dynamique et interactive.
+
+---
+
+## Exercice 10: Recomposition Skippable et état partagé
+
+1. **Notion à connaître**: L'utilisation correcte de `remember` et `mutableStateOf` est essentielle pour gérer l'état partagé de manière efficace et minimiser les recompositions.
+
+2. **Besoin précis**: Ajoutez la possibilité de sélectionner un jour spécifique dans `WeekView`. Partagez cet état avec `SelectButton` pour mettre à jour l'état de sélection.
+
+3. **Correction**:
+```kotlin
+@Composable
+fun SelectButton(selectedDay: MutableState<String>) {
+    Button(onClick = { selectedDay.value = "Mon" },
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)) {
+        Text("Select Monday")
+    }
+}
+
+@Composable
+fun DayColumn(day: String, appointments: List<Appointment>, selectedDay: MutableState<String>) {
+    val isSelected = remember { mutableStateOf(false) }
+    isSelected.value = day == selectedDay.value
+
+    val backgroundColor by animateColorAsState(if (isSelected.value) Color.LightGray else Color.White)
+
+    Column(modifier = Modifier.background(color = backgroundColor)) {
+        Text(day, modifier = Modifier.padding(4.dp))
+        appointments.forEach { 
+            AnimatedAppointmentCard(SelectedAppointment(it), isSelected = isSelected.value)
+        }
+    }
+}
+
+@Composable
+fun AppointmentCalendar() {
+    val weekDays = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
+    val weekAppointments = mutableMapOf<String, List<Appointment>>()
+    weekDays.forEach { day ->
+        weekAppointments[day] = listOf(Appointment("$day Appointment", "14:00"))
+    }
+
+    var selectedDay = remember { mutableStateOf("") }
+    WeekView(weekDays, weekAppointments, selectedDay)
+    SelectButton(selectedDay)
+}
+```
+
+4. **Résumé**: Nous avons utilisé `remember` et `mutableStateOf` pour gérer l'état partagé entre différents composables, minimisant ainsi les recompositions inutiles. Nous avons également utilisé les animations pour indiquer visuellement le changement d'état.
