@@ -1,4 +1,4 @@
-# Exercices Level1
+# LEVEL1 : Exercices
 
 ## Exercice 1 : Local State
 
