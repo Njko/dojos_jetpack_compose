@@ -96,3 +96,134 @@ fun AppointmentCalendar() {
 ```
 
 4. **Résumé**: Nous avons travaillé sur l'`IntrinsicSize` en Jetpack Compose. Nous avons créé une `AppointmentCard` qui utilise `IntrinsicSize.Min` pour s'assurer que la carte est toujours suffisamment grande pour afficher tous les détails de l'appointment.
+
+## Exercice 4: Custom Layouts
+
+1. **Notion à connaître**: Les "custom layouts" sont des dispositions que vous créez pour adapter les Composables à vos propres besoins. Vous pouvez les définir en utilisant le modificateur `Layout` et en spécifiant comment les enfants doivent être disposés.
+
+2. **Besoin**: Créez un `WeekView` Composable qui affiche les sept jours de la semaine horizontalement. Utilisez un custom layout pour placer chaque jour de la semaine côte à côte.
+
+3. **Correction**:
+```kotlin
+@Composable
+fun WeekView(weekDays: List<String>) {
+    Layout(
+        content = { weekDays.forEach { Text(it, modifier = Modifier.padding(4.dp)) } }
+    ) { measurables, constraints ->
+        val placeables = measurables.map { measurable ->
+            measurable.measure(constraints)
+        }
+
+        layout(constraints.maxWidth, constraints.maxHeight) {
+            var xPosition = 0
+
+            placeables.forEach { placeable ->
+                placeable.placeRelative(x = xPosition, y = 0)
+                xPosition += placeable.width
+            }
+        }
+    }
+}
+
+@Composable
+fun AppointmentCalendar() {
+    val weekDays = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
+    var selectedAppointment by remember { mutableStateOf(Appointment("", "")) }
+
+    WeekView(weekDays)
+
+    Button(onClick = { selectedAppointment = Appointment("2023-06-23", "14:00") },
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)) {
+        Text("Select Appointment")
+    }
+
+    if (selectedAppointment.date.isNotEmpty()) {
+        AppointmentCard(appointment = selectedAppointment)
+    }
+}
+```
+
+4. **Résumé**: Dans cet exercice, nous avons appris à créer un custom layout. Nous avons utilisé le modificateur `Layout` pour créer un `WeekView` qui affiche les jours de la semaine côte à côte.
+
+---
+
+## Exercice 5: Custom Animations
+
+1. **Notion à connaître**: Les animations dans Jetpack Compose peuvent être personnalisées pour rendre l'expérience utilisateur plus interactive et plus agréable. Vous pouvez utiliser `animateColorAsState`, `animateDpAsState`, etc. pour créer des animations de couleur, de taille, de position et plus encore.
+
+2. **Besoin**: Ajoutez une animation à la `AppointmentCard` qui change la couleur de fond de la carte lorsque le rendez-vous est sélectionné.
+
+3. **Correction**:
+```kotlin
+@Composable
+fun AppointmentCard(appointment: Appointment, isSelected: Boolean) {
+    val backgroundColor by animateColorAsState(if (isSelected) Color.LightGray else Color.White)
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min),
+        backgroundColor = backgroundColor,
+        shape = RoundedCornerShape(8.dp),
+        elevation = 4.dp
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = "Appointment Details")
+            Text(text = "Date: ${appointment.date}")
+            Text(text = "Time: ${appointment.time}")
+        }
+    }
+}
+
+@Composable
+fun AppointmentCalendar() {
+    var selectedAppointment by remember { mutableStateOf(Appointment("", "")) }
+
+    Button(onClick = { selectedAppointment = Appointment("2023-06-23", "14:00") },
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)) {
+        Text("Select
+
+ Appointment")
+    }
+
+    if (selectedAppointment.date.isNotEmpty()) {
+        AppointmentCard(appointment = selectedAppointment, isSelected = true)
+    }
+}
+```
+
+4. **Résumé**: Nous avons découvert comment personnaliser les animations dans Jetpack Compose. Nous avons ajouté une animation à notre `AppointmentCard` pour changer la couleur de fond lorsqu'un rendez-vous est sélectionné.
+
+---
+
+## Exercice 6: Refactoring pour la Composition Locale
+
+1. **Notion à connaître**: À mesure que notre application se complexifie, il est crucial de garder notre code organisé et lisible. L'une des façons de le faire est de refactoriser notre code pour améliorer la composition locale.
+
+2. **Besoin**: Refactorisez le code de `AppointmentCalendar` pour extraire le bouton de sélection et `WeekView` dans leurs propres composables.
+
+3. **Correction**:
+```kotlin
+@Composable
+fun SelectButton(selectedAppointment: MutableState<Appointment>) {
+    Button(onClick = { selectedAppointment.value = Appointment("2023-06-23", "14:00") },
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)) {
+        Text("Select Appointment")
+    }
+}
+
+@Composable
+fun AppointmentCalendar() {
+    val weekDays = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
+    var selectedAppointment by remember { mutableStateOf(Appointment("", "")) }
+
+    WeekView(weekDays)
+    SelectButton(selectedAppointment)
+
+    if (selectedAppointment.date.isNotEmpty()) {
+        AppointmentCard(appointment = selectedAppointment, isSelected = true)
+    }
+}
+```
+
+4. **Résumé**: Dans cet exercice, nous avons refactorisé notre code pour améliorer la composition locale. En extrayant des parties de notre code en leurs propres composables, nous avons amélioré la lisibilité et la maintenabilité de notre code.
