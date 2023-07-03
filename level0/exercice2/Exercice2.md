@@ -4,7 +4,7 @@
 
 Créez un composable "CardPhoto" comme l'exemple ci dessous:
 
-![Objectif exercice](/level0/exercice2/img/feedItem.png)
+![Objectif exercice](img/feedItem.png)
 
 Voici la base :
 

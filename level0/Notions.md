@@ -41,3 +41,4 @@ https://www.jetpackcompose.net
 <!-- Ajouter un lien ici -->
 
 ### SVG
+[Importer un SVG dans un projet Android](https://blog.kdj-webdesign.com/comment-importer-un-svg-dans-un-projet-android/)
