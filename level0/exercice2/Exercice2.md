@@ -2,55 +2,16 @@
 
 ## Objectif
 
-Créez un composable "CardPhoto"
-code exemple :
+Créez un composable "CardPhoto" comme l'exemple ci dessous:
+
+![Objectif exercice](/level0/exercice2/img/feedItem.png)
+
+Voici la base :
 
 ```kotlin
 @Composable
 fun CardPhoto() {
-    Card(
-        modifier = Modifier.shadow(
-            elevation = 4.dp,
-            shape = RoundedCornerShape(10.dp)
-        )
-    ) {
-
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.avatar_1_raster),
-                    modifier = Modifier
-                        .size(48.dp)
-                        .clip(CircleShape),
-                    contentScale = ContentScale.Crop,
-                    contentDescription = "avatar"
-                )
-
-                Column {
-                    Text(
-                        "name",
-                        style = MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Medium)
-                    )
-                    Text("12/03/2023", style = MaterialTheme.typography.caption)
-                }
-            }
-            Image(
-                painter = painterResource(id = R.drawable.placeholder),
-                contentDescription = "main image",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp),
-                contentScale = ContentScale.Crop
-            )
-        }
-    }
+   // Déssiner le cadre photo ici
 }
 
 
@@ -60,6 +21,5 @@ fun CardPhotoPreview() {
     Column(modifier = Modifier.padding(20.dp)) {
         CardPhoto()
     }
-
 }
 ```

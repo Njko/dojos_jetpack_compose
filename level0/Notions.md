@@ -34,3 +34,10 @@ https://www.youtube.com/watch?v=rHKeRWK3zL4
 https://www.youtube.com/watch?v=XCuC_p3E0qo
 
 https://www.jetpackcompose.net
+
+## Comment ajouter une image dans le projet Android?
+
+### PNG
+<!-- Ajouter un lien ici -->
+
+### SVG
