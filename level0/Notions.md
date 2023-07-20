@@ -27,13 +27,17 @@ Pour s'entrainer à manipuler tous ces éléments, nous construirons un formulai
 
 ## Ressources
 
-https://www.youtube.com/watch?v=cDabx3SjuOY
+[Tuto créer sa première app Compose Partie 1](https://www.youtube.com/watch?v=cDabx3SjuOY)
 
-https://www.youtube.com/watch?v=rHKeRWK3zL4
+[Tuto créer sa première app Compose Partie 2](https://www.youtube.com/watch?v=rHKeRWK3zL4)
 
-https://www.youtube.com/watch?v=XCuC_p3E0qo
+[Tuto créer sa première app Compose Partie 3](https://www.youtube.com/watch?v=XCuC_p3E0qo)
 
-https://www.jetpackcompose.net
+[Ensemble de tutos de jetpackcompose.net](https://www.jetpackcompose.net)
+
+[Guidelines pour l'API Compose](https://github.com/androidx/androidx/blob/androidx-main/compose/docs/compose-api-guidelines.md)
+
+[Guidelines pour construire des Composables](https://github.com/androidx/androidx/blob/androidx-main/compose/docs/compose-component-api-guidelines.md#note-on-vocabulary-in-this-doc)
 
 ## Comment ajouter une image dans le projet Android?
 
@@ -41,4 +45,5 @@ https://www.jetpackcompose.net
 <!-- Ajouter un lien ici -->
 
 ### SVG
+
 [Importer un SVG dans un projet Android](https://blog.kdj-webdesign.com/comment-importer-un-svg-dans-un-projet-android/)
