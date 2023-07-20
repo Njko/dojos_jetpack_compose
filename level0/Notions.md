@@ -18,7 +18,7 @@ Pour s'entrainer à manipuler tous ces éléments, nous construirons un formulai
 ## Pré-requis
 
 * Android Studio installé et au moins un template de projet initié et exécuté (sur simulateur ou device)
-* Les docs de Material et Compose sous la main
+* Les docs de [Material](https://m3.material.io/) et [Compose](https://developer.android.com/jetpack/compose/documentation?hl=fr) sous la main
 
 ## Pas nécessaire (mais bien de savoir)
 
