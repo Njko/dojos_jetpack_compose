@@ -15,6 +15,13 @@ Concentrez vous sur les questions suivantes:
 * [Column / Row / Box](https://developer.android.com/jetpack/compose/layouts/basics?hl=fr)
 * [Text](https://developer.android.com/jetpack/compose/text?hl=fr)
 
+Optionnel:
+* [Scaffold](https://developer.android.com/jetpack/compose/layouts/material?hl=fr#scaffold)
+
+## Notions supplémentaire à découvrir
+
+* [Les Modificateurs (ou Modifier)](https://developer.android.com/jetpack/compose/modifiers?hl=fr)
+
 ## Références
 
 Si vous souhaitez d'avantage de références, reportez vous au fichier [suivant](../Notions.md) qui contient toutes les notions de bases de Compose.

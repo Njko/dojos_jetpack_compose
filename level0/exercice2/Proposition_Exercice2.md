@@ -20,7 +20,7 @@ fun CardPhoto() {
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.avatar_1_raster),
+                    painter = painterResource(id = R.drawable.avatar),
                     modifier = Modifier
                         .size(48.dp)
                         .clip(CircleShape),
@@ -37,7 +37,7 @@ fun CardPhoto() {
                 }
             }
             Image(
-                painter = painterResource(id = R.drawable.placeholder),
+                painter = painterResource(id = R.drawable.pop_corn),
                 contentDescription = "main image",
                 modifier = Modifier
                     .fillMaxWidth()
