@@ -13,17 +13,20 @@ en option:
 * Introduction aux states
 * Elements interactifs
 
-Pour s'entrainer à manipuler tous ces éléments, nous construirons un formulaire.
+Pour s'entrainer à manipuler tous ces éléments, nous finirons par construire un formulaire avec l'exercice 4. 
+
+**Attention** cependant, toutes les notions pour gérer l'état d'un formulaire sont abordés dans les niveaux suivants. Dans ce niveau 0, on ne se concentre QUE sur l'organisation et le placement des éléments à l'écran.
 
 ## Pré-requis
 
 * Android Studio installé et au moins un template de projet initié et exécuté (sur simulateur ou device)
 * Les docs de [Material](https://m3.material.io/) et [Compose](https://developer.android.com/jetpack/compose/documentation?hl=fr) sous la main
+* [Un préambule de la manière de penser "Compose"](https://developer.android.com/jetpack/compose/mental-model?hl=fr)
 
 ## Pas nécessaire (mais bien de savoir)
 
-* Les bases de Kotlin
-* Les bases d'une app Android
+* [Les bases de Kotlin](https://kotlinlang.org/)
+* [Les bases d'une app Android avec Kotlin](https://developer.android.com/kotlin/androidbasics?hl=fr)
 
 ## Ressources
 
