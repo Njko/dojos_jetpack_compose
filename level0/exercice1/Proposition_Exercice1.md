@@ -1,6 +1,6 @@
 # Proposition Exercice 1
 
-``kotlin
+```kotlin
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
