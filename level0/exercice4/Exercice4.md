@@ -1,10 +1,8 @@
-# Exercice 1
+# Exercice 4
 
 ## Objectif
 
-# Exercice 4
-
-Assembler les premières briques de l'UI d'un formulaire
+Assembler les premières briques de l'UI d'un formulaire. Cet exercice est prévu pour les élèves les plus rapide. Vous pouvez tenter de tous les reproduires.
 
 ## Références
 

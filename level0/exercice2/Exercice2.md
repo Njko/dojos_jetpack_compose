@@ -6,6 +6,8 @@ Ce deuxième exercice a pour but de rentrer progressivement dans les sujets sér
 
 Même si l'objectif cité ci dessous donne une maquette haute fidélité, le respect de cette maquette reste à votre discrétion. Amusez vous à tester différentes disposition de texte, d'image, de marges, etc. Les dimensions ne sont pas fournies volontairement pour ne donner aucune contrainte à votre créativité.
 
+N'oubliez pas que les notions essentielles à ce niveau 0 sont dispo ici <mettre lien vers doc>
+
 ## Composables utilisés pour cet exercice
 
 * [Column / Row / Box](https://developer.android.com/jetpack/compose/layouts/basics?hl=fr)
@@ -23,6 +25,8 @@ Optionnel:
 Créez un composable nommé "CardPhoto" comme l'exemple ci dessous:
 
 ![Objectif exercice](img/feedItem.png)
+
+Pour les ressources, un dossier nommé "/ressource" contient les images à intégrer. Et une documentation est disponible pour ajouter une image dans le projet à cette adresse: <ajouter /notion.md paragraphe ajouter une image>
 
 Voici la base :
 

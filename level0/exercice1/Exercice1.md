@@ -58,3 +58,5 @@ Si vous souhaitez d'avantage de références, reportez vous au fichier [suivant]
 1. Ajoutez le modifier sur Text "Hello" et ajoutez le paramètre .align(Alignment.Center)
 
 1. Testez d'autres modifier sur le Text
+
+=> 3 sous exercices pour éviter de modifier des composables déjà écrit

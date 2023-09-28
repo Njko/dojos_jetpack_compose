@@ -1,5 +1,12 @@
 # Exercices Level1
 
++ => Etat pour une textfield (click)
++ => LazyColumn VS Column
++ => LaunchedEffect
+- => Profiler
+- => Semantics (créer DOJO dédié A11Y)
+
+
 ## Exercice 1 : Local State
 
 1. *Notion à connaitre* : Jetpack Compose utilise le concept de Local State pour représenter les données qui sont mutables à l'intérieur d'un composable. Ces données peuvent changer au fil du temps, ce qui peut entraîner la recomposition de votre composable.
@@ -97,7 +104,7 @@ fun CalendarMonth() {
 
 4. *Résumé* : Nous avons créé un composable qui représente un mois dans le calendrier. En utilisant correctement l'état local pour chaque jour, nous assurons que seuls les jours spécifiques sont recomposés lorsque leur état de sélection change.
 
-## Exercice 5 : Profiler (Recomposition Count)
+## Exercice 5 : Profiler (Recomposition Count) -> mettre niveau 2
 
 1. *Notion à connaitre* : Le Profileur de Jetpack Compose offre des outils pour mesurer la performance de votre application. L'une de ces métriques est le "Recomposition Count", qui indique combien de fois un composable a été recomposé.
 

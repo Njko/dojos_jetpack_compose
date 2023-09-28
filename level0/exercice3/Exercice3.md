@@ -2,7 +2,9 @@
 
 ## Objectif
 
-Créer cette interface
+Créer cette interface.
+
+Les ressources sont disponibles dans le dossier /ressources
 
 ![Exemple d'interface](img/fight.png)
 
