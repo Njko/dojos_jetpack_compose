@@ -1,4 +1,4 @@
-# Exercices
+# LEVEL 2 : Exercices
 
  ## Exercice 1: Introduction aux SideEffects
 
